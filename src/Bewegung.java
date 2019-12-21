@@ -44,6 +44,7 @@ public class Bewegung {
 
     public void setAliases(String[] aliases) {
         this.aliases = Arrays.asList(aliases);
+        this.aliases.add(this.getName());
     }
 
     @Override

@@ -26,8 +26,6 @@ public class SchnickSchnackSchnuck {
         spiel = new Spiel(new Spieler("A"), new Spieler("B"));
         spiel.setMoves(new Bewegung[]{schere,stein,papier,nils});
 
-        String input = "";
-
 
         requestMove(spiel.getA());
         requestMove(spiel.getB());
