@@ -8,6 +8,9 @@ public class InvalidMoveException extends Exception {
         this.triedMove = triedMove;
         this.possibleMoves = possibleMoves;
     }
+    public InvalidMoveException() {
+        super();
+    }
 
     public String getTriedMove() {
         return triedMove;
