@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 public class Spiel {
@@ -24,6 +25,10 @@ public class Spiel {
         this.moves = moves;
     }
 
+    public void setMoves(Bewegung[] moves) {
+        this.moves = Arrays.asList(moves);
+    }
+
     public Spieler getA() {
         return spielerA;
     }
@@ -43,7 +48,12 @@ public class Spiel {
 
     }
 
-
+    public boolean isValidMove(String move) {
+        for (Bewegung b: this.getMoves()) {
+            if (b.getAliases().contains(move)) return true;
+        }
+        return false;
+    }
 
     public Spieler eval() {
         if (this.spielerA.getAktuelle().getSchlaegt().contains(this.spielerB.getAktuelle())) return spielerA;

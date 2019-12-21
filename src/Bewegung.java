@@ -1,15 +1,17 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 
 public class Bewegung {
     private Collection<Bewegung> schlaegt;
     private String name;
-    private ArrayList<String> aliases;
+    private Collection<String> aliases;
 
     public Bewegung(String name) {
         this.name = name;
         this.schlaegt = new ArrayList<>();
         this.aliases = new ArrayList<>();
+        this.aliases.add(this.name);
     }
 
     public Collection<Bewegung> getSchlaegt() {
@@ -20,6 +22,10 @@ public class Bewegung {
         this.schlaegt = schlaegt;
     }
 
+    public void setSchlaegt(Bewegung[] schlaegt) {
+        this.schlaegt = Arrays.asList(schlaegt);
+    }
+
     public String getName() {
         return name;
     }
@@ -28,12 +34,16 @@ public class Bewegung {
         this.name = name;
     }
 
-    public ArrayList<String> getAliases() {
+    public Collection<String> getAliases() {
         return aliases;
     }
 
     public void setAliases(ArrayList<String> aliases) {
         this.aliases = aliases;
+    }
+
+    public void setAliases(String[] aliases) {
+        this.aliases = Arrays.asList(aliases);
     }
 
     @Override

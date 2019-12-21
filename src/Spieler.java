@@ -4,7 +4,7 @@ public class Spieler {
     private Bewegung aktuelleBewegung;
     private Spiel spiel;
 
-    public Spieler (String name) {
+    public Spieler(String name) {
         this.name = name;
     }
 
@@ -32,18 +32,18 @@ public class Spieler {
         this.spiel = spiel;
     }
 
-    public void spielen (Bewegung bewegung) {
+    public void spielen(Bewegung bewegung) {
         this.aktuelleBewegung = bewegung;
     }
 
-    public void spielen (String bewegung) throws InvalidMoveException {
+    public void spielen(String bewegung) throws InvalidMoveException {
         for (Bewegung a: this.getSpiel().getMoves()) {
             if (a.getAliases().contains(bewegung) || a.getName().equals(bewegung)) {
                 this.spielen(a);
                 return;
             }
         }
-        throw new InvalidMoveException(bewegung,this.getSpiel().getMoves());
+        if (!this.getSpiel().isValidMove(bewegung)) throw new InvalidMoveException(bewegung,this.getSpiel().getMoves());
     }
 
     public Bewegung getAktuelle () {

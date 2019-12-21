@@ -1,38 +1,55 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Scanner;
 
 public class SchnickSchnackSchnuck {
+
+    private static Spiel spiel;
+    private static Scanner cons = new Scanner(System.in);
+
     public static void main(String[] args) {
         Bewegung schere = new Bewegung("Schere");
         Bewegung stein = new Bewegung("Stein");
         Bewegung papier = new Bewegung("Papier");
 
-        schere.getAliases().addAll(Arrays.asList("schere", "sch","Sch","sc","Sc"));
-        stein.getAliases().addAll(Arrays.asList("stein","st","St"));
-        papier.getAliases().addAll(Arrays.asList("papier","pap","p","Pap","P"));
+        schere.setAliases(new String[]{"schere", "sch","Sch","sc","Sc"});
+        stein.setAliases(new String[]{"stein","st","St"});
+        papier.setAliases(new String[]{"papier", "pap", "Pap", "P", "p"});
 
         schere.getSchlaegt().add(papier);
         papier.getSchlaegt().add(stein);
         stein.getSchlaegt().add(schere);
 
-        Spiel spiel = new Spiel(new Spieler("A"), new Spieler("B"));
-        spiel.getMoves().addAll(Arrays.asList(schere,stein,papier));
-        try {
-            spiel.getA().spielen("st");
-        } catch (InvalidMoveException e) {
-            System.out.println("You tried to play: " + e.getTriedMove() + " but this was not recognized as a move name or alias. Your move has to be one of the following:" + e.getPossibleMoves().toString());
-            System.exit(-1);
-        }
-        try {
-            spiel.getB().spielen("pap");
-        } catch (InvalidMoveException e) {
-            System.out.println("You tried to play: " + e.getTriedMove() + " but this was not recognized as a move name or alias. Your move has to be one of the following:" + e.getPossibleMoves().toString());
-            System.exit(-1);
-        }
-        System.out.println(spiel.eval().getName());
+        spiel = new Spiel(new Spieler("A"), new Spieler("B"));
+        spiel.setMoves(new Bewegung[]{schere,stein,papier});
+
+        String input = "";
 
 
+        requestMove(spiel.getA());
+        requestMove(spiel.getB());
+        Spieler winner = spiel.eval();
+        if (winner != null) {
+            winner.setPunkte(winner.getPunkte() + 1);
+            System.out.println(winner.getName() + " gewinnt! Er hat nun " + winner.getPunkte() + " Punkt/e.");
+        } else {
+            System.out.println("Es ist eine Krawatte! Tja.");
+        }
+
+
+
+    }
+
+    private static void requestMove(Spieler spieler) {
+        String input;
+        do {
+            System.out.println(spieler.getName() + ", gib deine Bewegung ein. Möglich sind: " + spiel.getMoves().toString());
+            input = cons.nextLine();
+            if (input.equals("exit") || input.equals("Exit")) System.exit(0);
+        } while (!spiel.isValidMove(input));
+
+        try {
+            spieler.spielen(input);
+        } catch (InvalidMoveException e) {
+            System.exit(-1);
+        }
     }
 }
