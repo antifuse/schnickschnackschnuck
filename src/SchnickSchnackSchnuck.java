@@ -9,30 +9,38 @@ public class SchnickSchnackSchnuck {
         Bewegung schere = new Bewegung("Schere");
         Bewegung stein = new Bewegung("Stein");
         Bewegung papier = new Bewegung("Papier");
+        Bewegung nils = new Bewegung("Nils");
 
         schere.setAliases(new String[]{"schere", "sch","Sch","sc","Sc"});
         stein.setAliases(new String[]{"stein","st","St"});
         papier.setAliases(new String[]{"papier", "pap", "Pap", "P", "p"});
+        nils.setAliases(new String[]{"nils","ni","Ni","n","N","Nils312"});
 
         schere.getSchlaegt().add(papier);
+        schere.getSchlaegt().add(nils);
         papier.getSchlaegt().add(stein);
+        papier.getSchlaegt().add(nils);
         stein.getSchlaegt().add(schere);
+        stein.getSchlaegt().add(nils);
 
         spiel = new Spiel(new Spieler("A"), new Spieler("B"));
-        spiel.setMoves(new Bewegung[]{schere,stein,papier});
+        spiel.setMoves(new Bewegung[]{schere,stein,papier,nils});
 
         String input = "";
 
 
         requestMove(spiel.getA());
         requestMove(spiel.getB());
-        Spieler winner = spiel.eval();
+        Spieler winner = spiel.winner();
         if (winner != null) {
             winner.setPunkte(winner.getPunkte() + 1);
             System.out.println(winner.getName() + " gewinnt! Er hat nun " + winner.getPunkte() + " Punkt/e.");
+            if (spiel.loser().getAktuelle().equals(nils)) System.out.println("Nils wurde soeben geschlagen!");
         } else {
             System.out.println("Es ist eine Krawatte! Tja.");
         }
+
+
 
 
 

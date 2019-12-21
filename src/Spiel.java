@@ -14,6 +14,8 @@ public class Spiel {
         this.spielerB = spielerB;
         this.spielerA.setSpiel(this);
         this.spielerB.setSpiel(this);
+        this.spielerA.setGegner(spielerB);
+        this.spielerB.setGegner(spielerA);
         this.moves = new ArrayList<>();
     }
 
@@ -55,9 +57,13 @@ public class Spiel {
         return false;
     }
 
-    public Spieler eval() {
+    public Spieler winner() {
         if (this.spielerA.getAktuelle().getSchlaegt().contains(this.spielerB.getAktuelle())) return spielerA;
         if (this.spielerB.getAktuelle().getSchlaegt().contains(this.spielerA.getAktuelle())) return spielerB;
         return null;
+    }
+
+    public Spieler loser() {
+        return this.winner() != null ? this.winner().getGegner() : null;
     }
 }

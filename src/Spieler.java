@@ -3,6 +3,7 @@ public class Spieler {
     private int punkte;
     private Bewegung aktuelleBewegung;
     private Spiel spiel;
+    private Spieler gegner;
 
     public Spieler(String name) {
         this.name = name;
@@ -30,6 +31,14 @@ public class Spieler {
 
     public void setSpiel(Spiel spiel) {
         this.spiel = spiel;
+    }
+
+    public Spieler getGegner() {
+        return gegner;
+    }
+
+    public void setGegner(Spieler gegner) {
+        this.gegner = gegner;
     }
 
     public void spielen(Bewegung bewegung) {
