@@ -1,11 +1,11 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class SchnickSchnackSchnuck {
 
-    private static Spiel spiel;
-    private static Scanner cons = new Scanner(System.in);
-
     public static void main(String[] args) {
+        Scanner cons = new Scanner(System.in);
+        Random randomizer = new Random();
         Bewegung schere = new Bewegung("Schere");
         Bewegung stein = new Bewegung("Stein");
         Bewegung papier = new Bewegung("Papier");
@@ -23,19 +23,23 @@ public class SchnickSchnackSchnuck {
         stein.getSchlaegt().add(schere);
         stein.getSchlaegt().add(nils);
 
-        spiel = new Spiel(new Spieler("A"), new Spieler("B"));
-        spiel.setMoves(new Bewegung[]{schere,stein,papier,nils});
+        Spiel spiel = new Spiel(new Spieler("Spieler"), new Spieler("Computer"));
+        Bewegung[] moves = new Bewegung[]{schere,stein,papier,nils};
+        spiel.setMoves(moves);
 
-
-        requestMove(spiel.getA());
-        requestMove(spiel.getB());
-        Spieler winner = spiel.winner();
-        if (winner != null) {
-            winner.setPunkte(winner.getPunkte() + 1);
-            System.out.println(winner.getName() + " gewinnt! Er hat nun " + winner.getPunkte() + " Punkt/e.");
-            if (spiel.loser().getAktuelle().equals(nils)) System.out.println("Nils wurde soeben geschlagen!");
-        } else {
-            System.out.println("Es ist eine Krawatte! Tja.");
+        for (;;) {
+            requestMove(spiel.getA(), spiel);
+            Bewegung computermove = moves[randomizer.nextInt(4)];
+            spiel.getB().spielen(computermove);
+            System.out.println(spiel.getA().getName() + " spielt " + spiel.getA().getAktuelle().getName() + ", " + spiel.getB().getName() + " spielt " + spiel.getB().getAktuelle());
+            Spieler winner = spiel.winner();
+            if (winner != null) {
+                winner.setPunkte(winner.getPunkte() + 1);
+                System.out.println(winner.getName() + " gewinnt! Er hat nun " + winner.getPunkte() + " Punkt/e.");
+                if (spiel.loser().getAktuelle().equals(nils)) System.out.println("Nils wurde soeben mit " + spiel.winner().getAktuelle().getName() + " geschlagen!");
+            } else {
+                System.out.println("Es ist eine Krawatte! Tja.");
+            }
         }
 
 
@@ -44,7 +48,8 @@ public class SchnickSchnackSchnuck {
 
     }
 
-    private static void requestMove(Spieler spieler) {
+    private static void requestMove(Spieler spieler, Spiel spiel) {
+        Scanner cons = new Scanner(System.in);
         String input;
         do {
             System.out.println(spieler.getName() + ", gib deine Bewegung ein. Möglich sind: " + spiel.getMoves().toString());
