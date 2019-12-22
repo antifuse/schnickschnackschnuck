@@ -23,7 +23,7 @@ public class Bewegung {
     }
 
     public void setSchlaegt(Bewegung[] schlaegt) {
-        this.schlaegt = Arrays.asList(schlaegt);
+        this.schlaegt.addAll(Arrays.asList(schlaegt));
     }
 
     public String getName() {
