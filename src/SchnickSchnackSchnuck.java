@@ -11,9 +11,9 @@ public class SchnickSchnackSchnuck {
         Bewegung papier = new Bewegung("Papier");
         Bewegung nils = new Bewegung("Nils");
 
-        schere.setAliases(new String[]{"schere", "sch","Sch","sc","Sc"});
-        stein.setAliases(new String[]{"stein","st","St"});
-        papier.setAliases(new String[]{"papier", "pap", "Pap", "P", "p"});
+        schere.setAliases(new String[]{"schere", "sch","Sch","sc","Sc","scissors","Scissors"});
+        stein.setAliases(new String[]{"stein","st","St","rock","Rock","r","R"});
+        papier.setAliases(new String[]{"papier", "pap", "Pap", "P", "p","paper","Paper"});
         nils.setAliases(new String[]{"nils","ni","Ni","n","N","Nils312"});
 
         schere.getSchlaegt().add(papier);
