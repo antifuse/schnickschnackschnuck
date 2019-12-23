@@ -36,7 +36,7 @@ public class SchnickSchnackSchnuck {
             if (winner != null) {
                 winner.setPunkte(winner.getPunkte() + 1);
                 System.out.println(winner.getName() + " gewinnt! Er hat nun " + winner.getPunkte() + " Punkt/e.");
-                if (spiel.loser().getAktuelle().equals(nils)) System.out.println("Nils wurde soeben mit " + spiel.winner().getAktuelle().getName() + " geschlagen!");
+                if (spiel.loser().getAktuelle().equals(nils)) System.out.println("Nils wurde soeben mit " + (spiel.winner().getAktuelle().equals(schere) ? "einer " : "einem ") + spiel.winner().getAktuelle().getName() + " geschlagen!");
             } else {
                 System.out.println("Es ist eine Krawatte! Tja.");
             }
