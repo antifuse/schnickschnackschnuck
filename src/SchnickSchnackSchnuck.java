@@ -11,7 +11,7 @@ public class SchnickSchnackSchnuck {
         Bewegung papier = new Bewegung("Papier");
         Bewegung nils = new Bewegung("Nils");
 
-        schere.setAliases(new String[]{"schere", "sch","Sch","sc","Sc","scissors","Scissors"});
+        schere.setAliases(new String[]{"schere", "sch","Sch","sc","Sc","scissorsrScissors"});
         stein.setAliases(new String[]{"stein","st","St","rock","Rock","r","R"});
         papier.setAliases(new String[]{"papier", "pap", "Pap", "P", "p","paper","Paper"});
         nils.setAliases(new String[]{"nils","ni","Ni","n","N","Nils312"});
@@ -48,13 +48,26 @@ public class SchnickSchnackSchnuck {
 
     }
 
+    private static void endOfGame(Spiel spiel) {
+        System.out.println("Das Spiel wurde beendet.");
+        System.out.println("Am Ende des Spiels hast du " + spiel.getA().getPunkte() + " Punkte, der Computer hat " + spiel.getB().getPunkte() + " Punkte.");
+        if (spiel.getA().getPunkte() > spiel.getB().getPunkte()) {
+            System.out.println("Du hast gewonnen! Herzlichen Glückwunsch!");
+        } else if (spiel.getB().getPunkte() > spiel.getA().getPunkte()) {
+            System.out.println("Der Computer hat gewonnen! Tja.");
+        } else {
+            System.out.println("Damit ist dieses Spiel insgesamt eine einzige Krawatte!");
+        }
+        System.exit(0);
+    }
+
     private static void requestMove(Spieler spieler, Spiel spiel) {
         Scanner cons = new Scanner(System.in);
         String input;
         do {
             System.out.println(spieler.getName() + ", gib deine Bewegung ein. Möglich sind: " + spiel.getMoves().toString());
             input = cons.nextLine();
-            if (input.equals("exit") || input.equals("Exit")) System.exit(0);
+            if (input.equals("exit") || input.equals("Exit")) endOfGame(spiel);
         } while (!spiel.isValidMove(input));
 
         try {
